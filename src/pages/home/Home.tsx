@@ -1,5 +1,5 @@
-import ChartBox from '../../components/chartBox/chartBox';
 import TopBox from '../../components/topBox/TopBox';
+import ChartBox from '../../components/chartBox/ChartBox2';
 import {
   chartBoxConversion,
   chartBoxProduct,
