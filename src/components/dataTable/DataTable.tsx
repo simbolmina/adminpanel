@@ -75,7 +75,8 @@ export type UserRowsProps = {
   verified: boolean;
 };
 
-const DataTable = ({ rows }: { rows: UserRowsProps[] }) => {
+// const DataTable = ({ rows }: { rows: UserRowsProps[] }) => {
+const DataTable = ({ rows }: any) => {
   return (
     <div className="dataTable">
       <DataGrid
