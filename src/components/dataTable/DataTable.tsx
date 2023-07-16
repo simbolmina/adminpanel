@@ -1,68 +1,6 @@
-import {
-  DataGrid,
-  GridColDef,
-  GridValueGetterParams,
-  GridToolbar,
-} from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridColDef } from '@mui/x-data-grid';
 import './dataTable.scss';
-
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'avatar',
-    headerName: 'Avatar',
-    width: 100,
-    renderCell: (params) => {
-      return <img src={params.row.img || './noavatar.png'} alt="" />;
-    },
-  },
-  {
-    field: 'actions',
-    headerName: 'Actions',
-    width: 100,
-    renderCell: () => {
-      return (
-        <div className="action">
-          <div className="view">
-            <img src="./form.svg" alt="" />
-          </div>
-          <div className="delete">
-            <img src="./delete.svg" alt="" />
-          </div>
-        </div>
-      );
-    },
-  },
-  { field: 'status', headerName: 'Status', width: 100, type: 'boolean' },
-  {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'lastName',
-    headerName: 'Last name',
-    width: 150,
-    editable: true,
-  },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
+import { Link } from 'react-router-dom';
 
 export type UserRowsProps = {
   id: number;
@@ -75,17 +13,46 @@ export type UserRowsProps = {
   verified: boolean;
 };
 
-// const DataTable = ({ rows }: { rows: UserRowsProps[] }) => {
-const DataTable = ({ rows }: any) => {
+const DataTable = ({
+  rows,
+  columns,
+  slug,
+}: {
+  rows: object[];
+  columns: GridColDef[];
+  slug: string;
+}) => {
+  const handleDelete = (id: number) => {
+    //delete the item
+    console.log(`user: ${id} has been deleted`);
+  };
+  const actionColumn: GridColDef = {
+    field: 'action',
+    headerName: 'Action',
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className="action">
+          <Link to={`/${slug}/${params.row.id}`}>
+            <img src="/view.svg" alt="" />
+          </Link>
+          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+            <img src="/delete.svg" alt="" />
+          </div>
+        </div>
+      );
+    },
+  };
+
   return (
     <div className="dataTable">
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={[...columns, actionColumn]}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
