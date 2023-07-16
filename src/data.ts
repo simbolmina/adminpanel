@@ -1,4 +1,4 @@
-import { UserRowsProps } from './components/dataTable/DataTable';
+// import { UserRowsProps } from './components/dataTable/DataTable';
 
 export const menu = [
   {
