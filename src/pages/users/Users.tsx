@@ -1,76 +1,68 @@
 import DataTable from '../../components/dataTable/DataTable';
 import { userRows } from '../../data';
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import './users.scss';
+import React from 'react';
+import Add from '../../components/addUser/Add';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
-    field: 'avatar',
+    field: 'img',
     headerName: 'Avatar',
     width: 100,
     renderCell: (params) => {
-      return <img src={params.row.img || './noavatar.png'} alt="" />;
+      return <img src={params.row.img || '/noavatar.png'} alt="" />;
     },
   },
-  {
-    field: 'actions',
-    headerName: 'Actions',
-    width: 100,
-    renderCell: () => {
-      return (
-        <div className="action">
-          <div className="view">
-            View
-            {/* <img src="./form.svg" alt="" /> */}
-          </div>
-          <div className="delete">
-            Delete
-            {/* <img src="./delete.svg" alt="" /> */}
-          </div>
-        </div>
-      );
-    },
-  },
-  { field: 'status', headerName: 'Status', width: 100, type: 'boolean' },
   {
     field: 'firstName',
+    type: 'string',
     headerName: 'First name',
     width: 150,
-    editable: true,
   },
   {
     field: 'lastName',
+    type: 'string',
     headerName: 'Last name',
     width: 150,
-    editable: true,
   },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true,
+    field: 'email',
+    type: 'string',
+    headerName: 'Email',
+    width: 200,
   },
   {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    field: 'phone',
+    type: 'string',
+    headerName: 'Phone',
+    width: 200,
+  },
+  {
+    field: 'createdAt',
+    headerName: 'Created At',
+    width: 200,
+    type: 'string',
+  },
+  {
+    field: 'verified',
+    headerName: 'Verified',
+    width: 150,
+    type: 'boolean',
   },
 ];
 
 const Users = () => {
+  const [open, setOpen] = React.useState(false);
   return (
     <div className="users">
       <div className="info">
         <h1>Users</h1>
-        <button>Add New Users</button>
+        <button onClick={() => setOpen(true)}>Add New Users</button>
       </div>
       <DataTable rows={userRows} columns={columns} slug="users" />
+      {open && <Add setOpen={setOpen} slug="user" columns={columns} />}
     </div>
   );
 };
