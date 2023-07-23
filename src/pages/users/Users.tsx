@@ -4,6 +4,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import './users.scss';
 import React from 'react';
 import Add from '../../components/addUser/Add';
+// import { useQuery } from '@tanstack/react-query';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -55,6 +56,18 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [open, setOpen] = React.useState(false);
+
+  // const { isLoading, data } = useQuery({
+  //   queryKey: ['allusers'],
+  //   // queryFn: fetchTodoList,
+  //   queryFn: () =>
+  //     fetch('http://localhost:8800/api/users').then((res) => res.json()),
+  // });
+
+  // if (isLoading) {
+  //   return <span>Loading...</span>;
+  // }
+
   return (
     <div className="users">
       <div className="info">
